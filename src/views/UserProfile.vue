@@ -1,8 +1,20 @@
 <template>
   <div class="profilePage">
-    <h1>This is user profile</h1>
-    <div v-for="post in userPosts" :key="post.id">
-      <Post :post-content="post" />
+    <div v-if="loggedUser.username === user.username" class="buttonWrapper">
+      <button @click="showPosts = true">Posts</button>
+      <button @click="showPosts = false">Folowing</button>
+    </div>
+    <div v-if="!showPosts">
+      <p>Following</p>
+      <div v-for="post in postsArray" :key="post.id">
+        <Post :post-content="post" />
+      </div>
+    </div>
+    <div v-else>
+      <p>Posts</p>
+      <div v-for="post in userPosts" :key="post.id">
+        <Post :post-content="post" />
+      </div>
     </div>
   </div>
 </template>
@@ -19,19 +31,33 @@ export default {
   data() {
     return {
       user: "",
+      showPosts: true,
+      postsArray: [],
     };
   },
   created() {
     const store = useStore(),
-      userName = this.$route.params && this.$route.params.userName;
+      userName = this.$route.params && this.$route.params.userName,
+      self = this,
+      followingArray = this.$store.getters.getFollowing(),
+      followindIds = followingArray && followingArray.map((item) => item.id);
 
     this.user = userName && store.getters.getMemberByName(userName);
 
-    // user && (this.userPosts = store.getters.getMembersPosts(user.id));
+    followindIds &&
+      followindIds.forEach((item) => {
+        console.log(self.$store.getters.getMembersPosts(item));
+        this.postsArray = this.postsArray.concat(
+          self.$store.getters.getMembersPosts(item)
+        );
+      });
   },
   computed: {
     userPosts: function () {
       return this.user ? this.$store.getters.getMembersPosts(this.user.id) : "";
+    },
+    loggedUser: function () {
+      return this.$store.getters.getUser();
     },
   },
 };

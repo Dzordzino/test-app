@@ -35,13 +35,13 @@ const postActions = {
       throw new Error("API Error occurred.");
     }
   },
-  async postReplay({ commit, dispatch }, { id, comment }) {
+  async postReplay({ commit, dispatch }, { id, comment, userId }) {
     try {
       const res = await axios.post(
         `http://localhost:3000/posts/${id}/comments`,
         {
           body: comment,
-          userId: 1,
+          userId: userId,
         }
       );
       if (res.data) {
@@ -75,12 +75,12 @@ const postActions = {
       throw new Error("API Error occurred.");
     }
   },
-  async editPost({ commit }, { id, title, body }) {
+  async editPost({ commit }, { id, title, body, userId }) {
     try {
       await axios.put(`http://localhost:3000/posts/${id}`, {
         title: title,
         body: body,
-        userId: 1,
+        userId,
       });
       commit("editPost", { id, title, body });
     } catch (e) {

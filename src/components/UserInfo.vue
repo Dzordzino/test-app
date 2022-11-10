@@ -7,6 +7,9 @@
     />
     <p @click="showUserProfile">{{ userData.name }}</p>
     <p>{{ "@" + userData.username }}</p>
+    <button @click="followUser">
+      {{ this.userData.following ? "Unfollow" : "Follow" }}
+    </button>
   </div>
 </template>
 
@@ -22,6 +25,12 @@ export default {
   methods: {
     showUserProfile: function () {
       this.$router.push(this.userData.username);
+    },
+    followUser: function () {
+      this.$store.dispatch("followUser", {
+        id: this.userData.id,
+        follow: !this.userData.following,
+      });
     },
   },
 };

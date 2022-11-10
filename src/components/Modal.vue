@@ -11,9 +11,11 @@
           :post="modalData.payload"
         />
         <PostModal
-          v-if="modalData.type === 'post'"
+          v-else-if="modalData.type === 'post'"
           :payload="modalData.payload"
         />
+        <LoginModal v-else-if="modalData.type === 'login'" />
+        <SignupModal v-else-if="modalData.type === 'signup'" />
       </div>
     </div>
   </transition>
@@ -23,11 +25,15 @@
 import { useStore } from "vuex";
 import ReplayModal from "@/components/Modals/ReplayModal.vue";
 import PostModal from "@/components/Modals/PostModal.vue";
+import LoginModal from "@/components/Modals/LoginModal.vue";
+import SignupModal from "@/components/Modals/SignupModal.vue";
 export default {
   name: "Modal",
   components: {
     ReplayModal,
     PostModal,
+    LoginModal,
+    SignupModal,
   },
   computed: {
     modalData: function () {

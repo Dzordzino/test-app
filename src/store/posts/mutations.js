@@ -1,6 +1,6 @@
 const postMutations = {
   setPosts(state, posts) {
-    state.posts = posts;
+    state.posts = posts.reverse();
   },
   setPostComments(state, payload) {
     state.posts.find((post) => post.id === payload.id).comments =
@@ -32,11 +32,14 @@ const postMutations = {
     state.posts[index].body = body;
   },
   deleteComment(state, { id, postId }) {
-    const commentPost = state.posts[postId - 1];
+    const postIndex = state.posts.indexOf(
+      state.posts.find((post) => post.id === postId)
+    );
+    const commentPost = state.posts[postIndex];
     const index = commentPost.comments.indexOf(
       commentPost.comments.find((comment) => comment.id === id)
     );
-    state.posts[postId - 1].comments.splice(index, 1);
+    state.posts[postIndex].comments.splice(index, 1);
   },
   editComment(state, { id, postId, body }) {
     const commentPost = state.posts.find(

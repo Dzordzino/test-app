@@ -43,13 +43,15 @@ export default {
       this.title = text;
     },
     sendPost: function () {
+      const userId = this.$store.getters.getUserId();
       this.$store.dispatch("sendPost", {
-        id: 1,
+        id: userId,
         title: this.title,
         body: this.text,
       });
     },
     editPost: function () {
+      const userId = this.$store.getters.getUserId();
       if (this.payload.hideTitle) {
         this.$store.dispatch("editComment", {
           id: this.payload.id,
@@ -61,6 +63,7 @@ export default {
           id: this.payload.id,
           title: this.title,
           body: this.text,
+          userId,
         });
       }
     },

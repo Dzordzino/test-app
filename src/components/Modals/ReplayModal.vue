@@ -32,7 +32,6 @@ export default {
   },
   created() {
     const store = useStore();
-    console.log(this.post);
     this.user = store.getters.getMemberById(this.post.userId);
   },
   methods: {
@@ -40,11 +39,11 @@ export default {
       this.comment = text;
     },
     sendReplay: function () {
-      // console.log(this.postId);
-      // console.log(this.comment);
+      const userId = this.$store.getters.getUserId();
       this.$store.dispatch("postReplay", {
         id: this.post.id,
         comment: this.comment,
+        userId,
       });
     },
   },

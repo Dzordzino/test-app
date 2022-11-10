@@ -5,6 +5,7 @@ import memberMutations from "./mutations";
 const Members = {
   state: () => ({
     members: [],
+    user: {},
   }),
   mutations: memberMutations,
   actions: memberActions,

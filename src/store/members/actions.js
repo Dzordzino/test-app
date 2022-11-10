@@ -9,6 +9,39 @@ const memberActions = {
       throw new Error("API Error occurred.");
     }
   },
+  async login({ commit, dispatch }, { username, password }) {
+    try {
+      commit("loginUser", { username, password });
+      dispatch("closeModal");
+      return true;
+    } catch (e) {
+      return e;
+    }
+  },
+  async signup({ commit, dispatch }, user) {
+    try {
+      const res = await axios.post(`http://localhost:3000/users/`, user);
+      if (res.data) {
+        commit("signupUser", res.data);
+        dispatch("closeModal");
+      }
+      return true;
+    } catch (e) {
+      return e;
+    }
+  },
+  async followUser({ commit }, { follow, id }) {
+    try {
+      const res = await axios.patch(`http://localhost:3000/users/${id}`, {
+        following: follow,
+      });
+      if (res.data) {
+        commit("followUser", res.data);
+      }
+    } catch (e) {
+      throw new Error("API Error occurred.");
+    }
+  },
 };
 
 export default memberActions;
