@@ -1,6 +1,6 @@
 <template>
   <div class="profilePage">
-    <div v-if="loggedUser.username === user.username" class="buttonWrapper">
+    <div v-if="isMe" class="buttonWrapper">
       <button @click="showPosts = true">Posts</button>
       <button @click="showPosts = false">Folowing</button>
     </div>
@@ -46,7 +46,6 @@ export default {
 
     followindIds &&
       followindIds.forEach((item) => {
-        console.log(self.$store.getters.getMembersPosts(item));
         this.postsArray = this.postsArray.concat(
           self.$store.getters.getMembersPosts(item)
         );
@@ -59,13 +58,13 @@ export default {
     loggedUser: function () {
       return this.$store.getters.getUser();
     },
+    isMe: function () {
+      return (
+        this.loggedUser &&
+        this.user &&
+        this.loggedUser.username === this.user.username
+      );
+    },
   },
 };
 </script>
-<style scoped>
-.profilePage {
-  width: 100%;
-  max-width: 768px;
-  margin: 0 auto;
-}
-</style>

@@ -1,14 +1,23 @@
 <template>
-  <div class="userInfo">
+  <div class="flex items-center">
     <img
+      class="h-16 w-16 rounded-full mr-6"
       src="http://placeimg.com/50/50/any"
       :alt="userData.name"
       @click="showUserProfile"
     />
-    <p @click="showUserProfile">{{ userData.name }}</p>
-    <p>{{ "@" + userData.username }}</p>
-    <button @click="followUser">
-      {{ this.userData.following ? "Unfollow" : "Follow" }}
+    <div>
+      <p @click="showUserProfile">{{ userData.name }}</p>
+      <p class="text-light">{{ "@" + userData.username }}</p>
+    </div>
+
+    <button
+      class="ml-auto h-8 w-8 cursor-pointer"
+      v-if="user.username !== userData.name"
+      @click="followUser"
+    >
+      <i v-if="userData.following" class="fas fa-heart"></i>
+      <i v-else class="fas opacity-30 fa-heart"></i>
     </button>
   </div>
 </template>
@@ -20,6 +29,11 @@ export default {
     userData: {
       type: Object,
       default: () => {},
+    },
+  },
+  computed: {
+    user: function () {
+      return this.$store.getters.getUser();
     },
   },
   methods: {
@@ -35,20 +49,3 @@ export default {
   },
 };
 </script>
-<style scoped>
-.userInfo {
-  width: 100%;
-  padding: 10px;
-}
-img,
-p {
-  margin: 0;
-  padding: 0;
-  display: inline-block;
-  vertical-align: middle;
-  margin-right: 10px;
-}
-img {
-  border-radius: 50%;
-}
-</style>

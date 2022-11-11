@@ -1,9 +1,13 @@
 <template>
   <Modal />
   <Header />
-  <Sidebar />
-  <div class="mainContainer">
-    <router-view />
+  <div class="flex container h-screen w-full justify-end">
+    <div
+      class="lg:w-3/4 px-2 lg:px-36 py-2 flex flex-col justify-between items-center"
+    >
+      <router-view />
+    </div>
+    <Sidebar />
   </div>
 </template>
 
@@ -28,13 +32,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-body {
-  margin: 0;
-  padding: 0;
-}
-* {
-  box-sizing: border-box;
-}
-</style>

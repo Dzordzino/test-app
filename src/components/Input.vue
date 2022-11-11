@@ -1,11 +1,19 @@
 <template>
-  <div class="inputWrapper">
+  <div>
     <textarea
       v-if="inputType === 'textarea'"
       @input="textChanged"
       v-model="text"
+      :class="className"
+      :placeholder="placeholder"
     ></textarea>
-    <input v-else @input="textChanged" v-model="text" />
+    <input
+      v-else
+      @input="textChanged"
+      v-model="text"
+      :class="className"
+      :placeholder="placeholder"
+    />
   </div>
 </template>
 
@@ -18,6 +26,14 @@ export default {
       default: "input",
     },
     previousText: {
+      type: String,
+      default: "",
+    },
+    className: {
+      type: String,
+      default: "",
+    },
+    placeholder: {
       type: String,
       default: "",
     },

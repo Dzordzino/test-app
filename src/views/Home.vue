@@ -19,10 +19,3 @@ export default {
   },
 };
 </script>
-<style scoped>
-.home {
-  width: 100%;
-  max-width: 768px;
-  margin: 0 auto;
-}
-</style>

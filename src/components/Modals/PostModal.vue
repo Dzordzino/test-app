@@ -1,18 +1,35 @@
 <template>
-  <div class="postModal">
+  <div class="px-2 lg:px-8 p-4 bg-white rounded-lg">
+    <p class="text-3xl text-center m-6">Post Comment</p>
     <Input
       v-if="!payload.hideTitle"
+      class-name="pl-4 w-full rounded-full p-2 bg-lighter flex-column text-sm mb-4"
       input-type="input"
       @textUpdated="updateTitle"
       :previous-text="payload.title ? payload.title : ''"
+      placeholder="Post Title"
     />
     <Input
       input-type="textarea"
+      class-name="pl-4 w-full rounded-full p-2 bg-lighter flex-column text-sm mb-8"
       @textUpdated="updateText"
       :previous-text="payload.body ? payload.body : ''"
+      placeholder="Text"
     />
-    <button v-if="payload.body" @click="editPost">Edit</button>
-    <button v-else @click="sendPost">Post</button>
+    <button
+      v-if="payload.body"
+      class="h-12 w-40 text-2xl hover:bg-lightblue rounded-full text-blue border-blue border-2 p-1 px-12 flex m-auto text-center"
+      @click="editPost"
+    >
+      Edit
+    </button>
+    <button
+      v-else
+      class="h-12 w-40 text-2xl hover:bg-lightblue rounded-full text-blue border-blue border-2 p-1 px-12 flex m-auto text-center"
+      @click="sendPost"
+    >
+      Post
+    </button>
   </div>
 </template>
 
@@ -70,10 +87,3 @@ export default {
   },
 };
 </script>
-<style scoped>
-.postModal {
-  width: 100%;
-  max-width: 500px;
-  background: #fff;
-}
-</style>

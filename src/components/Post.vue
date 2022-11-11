@@ -1,30 +1,38 @@
 <template>
-  <div class="singlePost">
+  <div class="mb-4 px-8 py-6 bg-gray-100 rounded-lg">
     <UserInfo :user-data="user" />
-    <button @click="deletePost">Delete</button>
-    <button @click="editPost">Edit</button>
-    <div class="title">{{ postContent.title }}</div>
-    <div class="text">{{ postContent.body }}</div>
-    <div class="buttonWrapper">
+    <div v-if="loggedUser.username === user.username" class="text-right">
+      <button class="cursor-pointer h-8 w-8" @click="deletePost">
+        <i class="fas fa-minus text-red"></i>
+      </button>
+      <button class="cursor-pointer h-8 w-8" @click="editPost">
+        <i class="far fa-edit ml-3"></i>
+      </button>
+    </div>
+
+    <div class="text-2xl">{{ postContent.title }}</div>
+    <div class="mt-2">{{ postContent.body }}</div>
+    <div class="mt-4">
       <button
-        class="commentsToggleButton"
+        class="w-1/2 cursor-pointer"
         @click="hideComments = !hideComments"
       >
-        {{ "Comments " + commentsNumber }}
+        {{ "Comments (" + commentsNumber + ")" }}
       </button>
-      <button class="replayButton" @click="replayClick">Replay</button>
+      <button
+        class="text-center w-1/2 h-8 w-8 cursor-pointer"
+        @click="replayClick"
+      >
+        <i class="far fa-comment"></i>
+      </button>
     </div>
-    <div
-      :class="{
-        hide: hideComments,
-      }"
-    >
-      <Comment
-        v-for="comment in postContent.comments"
-        :key="comment.id"
-        :comment="comment"
-      />
-    </div>
+  </div>
+  <div v-if="!hideComments">
+    <Comment
+      v-for="comment in postContent.comments"
+      :key="comment.id"
+      :comment="comment"
+    />
   </div>
 </template>
 
@@ -63,6 +71,9 @@ export default {
     commentsNumber: function () {
       return this.postContent.comments && this.postContent.comments.length;
     },
+    loggedUser: function () {
+      return this.$store.getters.getUser();
+    },
   },
   methods: {
     replayClick: function () {
@@ -94,20 +105,3 @@ export default {
   },
 };
 </script>
-<style scoped>
-.singlePost {
-  width: 100%;
-  padding: 10px;
-}
-.title {
-  text-align: center;
-  margin-bottom: 10px;
-}
-.text {
-  margin-bottom: 10px;
-}
-.hide {
-  height: 0;
-  overflow: hidden;
-}
-</style>
