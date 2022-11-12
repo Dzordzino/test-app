@@ -10,7 +10,7 @@
       placeholder="Replay"
     />
     <button
-      class="h-12 w-40 text-2xl hover:bg-lightblue rounded-full text-blue border-blue border-2 p-1 px-10 flex m-auto text-center"
+      class="h-12 w-40 text-2xl hover:bg-lightblue rounded-full text-blue border-blue border-2 p-1 px-14 flex m-auto text-center"
       @click="sendReplay"
     >
       Replay

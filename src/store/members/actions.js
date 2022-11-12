@@ -12,6 +12,7 @@ const memberActions = {
   async login({ commit, dispatch }, { username, password }) {
     try {
       commit("loginUser", { username, password });
+      sessionStorage.setItem("user", username);
       dispatch("closeModal");
       return true;
     } catch (e) {
@@ -22,6 +23,7 @@ const memberActions = {
     try {
       const res = await axios.post(`http://localhost:3000/users/`, user);
       if (res.data) {
+        sessionStorage.setItem("user", user.username);
         commit("signupUser", res.data);
         dispatch("closeModal");
       }

@@ -2,7 +2,11 @@
   <div class="w-4/5 mt-4 mb-4 ml-auto mr-auto">
     <UserInfo :user-data="user" />
     <div class="w-full text-right">
-      <button class="h-8 w-8 cursor-pointer" @click="deleteComment">
+      <button
+        v-if="canDelete || loggedUser.username === user.username"
+        class="h-8 w-8 cursor-pointer"
+        @click="deleteComment"
+      >
         <i class="fas fa-minus text-red"></i>
       </button>
       <button
@@ -40,6 +44,13 @@ export default {
   computed: {
     loggedUser: function () {
       return this.$store.getters.getUser();
+    },
+    canDelete: function () {
+      const data = {
+        userId: this.loggedUser.id,
+        postId: this.comment.postId,
+      };
+      return this.$store.getters.getCanDelete(data);
     },
   },
   methods: {

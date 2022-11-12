@@ -15,13 +15,16 @@ yarn serve
 yarn build
 ```
 
-### Lints and fixes files
+### Runs mock server
 ```
-yarn lint
+json-server http://jsonplaceholder.typicode.com/db
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+### In order to run this project you need to run this in your terminal
 
-json-server --watch db.json
+1:  yarn install
+2:  yarn serve
+
+### In second terminal run
+
 json-server http://jsonplaceholder.typicode.com/db

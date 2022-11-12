@@ -3,7 +3,7 @@
   <Header />
   <div class="flex container h-screen w-full justify-end">
     <div
-      class="lg:w-3/4 px-2 lg:px-36 py-2 flex flex-col justify-between items-center"
+      class="lg:w-4/5 px-2 lg:px-36 py-2 flex flex-col justify-between items-center"
     >
       <router-view />
     </div>
@@ -25,10 +25,12 @@ export default {
     Modal,
   },
   async created() {
-    const store = useStore();
+    const store = useStore(),
+      loggedUser = sessionStorage.getItem("user");
 
     await store.dispatch("fetchMembers");
     await store.dispatch("fetchPosts");
+    loggedUser && store.commit("setLoggedUser", loggedUser);
   },
 };
 </script>

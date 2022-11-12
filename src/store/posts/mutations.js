@@ -16,7 +16,7 @@ const postMutations = {
       .comments.push(payload.comment);
   },
   setNewPost(state, post) {
-    state.posts.push(post);
+    state.posts.unshift(post);
   },
   deletePost(state, postId) {
     const index = state.posts.indexOf(
@@ -33,7 +33,9 @@ const postMutations = {
   },
   deleteComment(state, { id, postId }) {
     const postIndex = state.posts.indexOf(
-      state.posts.find((post) => post.id === postId)
+      state.posts.find((post) => {
+        return Number(post.id) === Number(postId);
+      })
     );
     const commentPost = state.posts[postIndex];
     const index = commentPost.comments.indexOf(

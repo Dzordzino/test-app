@@ -25,6 +25,7 @@ const memberMutations = {
   },
   logoutUser(state) {
     state.user = {};
+    sessionStorage.removeItem("user");
   },
   signupUser(state, user) {
     state.members.push(user);
@@ -35,6 +36,10 @@ const memberMutations = {
       state.members.find((member) => member.id === data.id)
     );
     state.members[memberIndex].following = data.following;
+  },
+  setLoggedUser(state, username) {
+    const user = state.members.find((member) => member.username === username);
+    state.user = user;
   },
 };
 

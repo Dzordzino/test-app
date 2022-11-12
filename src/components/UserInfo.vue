@@ -10,10 +10,9 @@
       <p @click="showUserProfile">{{ userData.name }}</p>
       <p class="text-light">{{ "@" + userData.username }}</p>
     </div>
-
     <button
       class="ml-auto h-8 w-8 cursor-pointer"
-      v-if="user.username !== userData.name"
+      v-if="user.username && user.username !== userData.username"
       @click="followUser"
     >
       <i v-if="userData.following" class="fas fa-heart"></i>

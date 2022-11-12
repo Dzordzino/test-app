@@ -1,5 +1,5 @@
 <template>
-  <div class="px-2 lg:px-8 p-4 bg-white rounded-lg">
+  <div class="px-4 lg:px-6 p-4 bg-white rounded-lg">
     <p class="text-3xl text-center m-6">Post Comment</p>
     <Input
       v-if="!payload.hideTitle"

@@ -78,12 +78,20 @@ export default {
   methods: {
     replayClick: function () {
       const postData = this.postContent;
-      this.$store.dispatch("openModal", {
-        type: "replay",
-        hasDocumentClose: true,
-        hasCloseButton: false,
-        payload: postData,
-      });
+      if (this.loggedUser.username) {
+        this.$store.dispatch("openModal", {
+          type: "replay",
+          hasDocumentClose: true,
+          hasCloseButton: false,
+          payload: postData,
+        });
+      } else {
+        this.$store.dispatch("openModal", {
+          type: "login",
+          hasDocumentClose: true,
+          hasCloseButton: false,
+        });
+      }
     },
     deletePost: function () {
       this.$store.dispatch("deletePost", {
